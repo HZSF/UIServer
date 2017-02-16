@@ -1,0 +1,33 @@
+debug: true
+
+spring:
+  aop:
+    proxy-target-class: true
+    
+    
+security:
+  user:
+    password: none
+  oauth2:
+    client:
+      access-token-uri: http://localhost:9999/uaa/oauth/token
+      user-authorization-uri: http://localhost:9999/uaa/oauth/authorize
+      client-id: acme
+      client-secret: acmesecret
+    
+    
+zuul:
+  routes:
+    patent:
+      path: /patent/**
+      url: http://localhost:9000/patent
+    trademark:
+      path: /trademark/**
+      url: http://localhost:9001/trademark
+    user:
+      path: /user/**
+      url: http://localhost:9999/uaa/user
+      
+logging:
+  level:
+    org.springframework.security: debug
